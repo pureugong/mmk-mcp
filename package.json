@@ -1,6 +1,6 @@
 {
   "name": "mmk-mcp",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "MCP server for Magic Meal Kits with Notion integration. Enables AI assistants to duplicate Notion blocks programmatically through your Magic Meal Kits API.",
   "type": "module",
   "main": "build/src/index.js",
@@ -10,10 +10,13 @@
     "dev": "tsc -w",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "npm run build",
-    "publish": "npm run build && npm publish"
+    "prepublishOnly": "npm run build",
+    "release": "npm version patch && npm publish",
+    "release:minor": "npm version minor && npm publish",
+    "release:major": "npm version major && npm publish"
   },
   "bin": {
-    "mmk-mcp": "./build/src/index.js"
+    "mmk-mcp": "build/src/index.js"
   },
   "files": [
     "build/src",
