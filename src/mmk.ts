@@ -2,7 +2,8 @@ import { ApiError } from './utils.js';
 import { 
     NotionDuplicateRequest, 
     NotionDuplicateResponse,
-    FetchOptions 
+    FetchOptions,
+    ServerVersionResponse
 } from './types.js';
 
 class MMKClient {
@@ -37,6 +38,13 @@ class MMKClient {
 
         const data = await response.json();
         return data as T;
+    }
+
+    /**
+     * Get the server version
+     */
+    async getServerVersion(): Promise<ServerVersionResponse> {
+        return this.fetch<ServerVersionResponse>('/version');
     }
 }
 

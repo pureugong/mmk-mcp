@@ -28,6 +28,18 @@ The MCP server:
 
 ### Installation
 
+#### Global Installation (Optional)
+
+You can install the package globally using npm:
+
+```bash
+npm install -g mmk-mcp
+```
+
+Current version: 1.0.4
+
+#### Claude Desktop Configuration
+
 To use this server with the Claude Desktop app, add the following configuration to the "mcpServers" section of your `claude_desktop_config.json`:
 
 ```json
@@ -56,7 +68,7 @@ To use this server with the Claude Desktop app, add the following configuration 
 
 ### Development
 
-1. Clone this repository
+1. Clone this repository from https://github.com/pureugong/mmk-mcp
 2. Create a `.env` file based on `.env.example`
 3. Install dependencies: `npm install`
 4. Build the project: `npm run build`
@@ -67,6 +79,7 @@ To use this server with the Claude Desktop app, add the following configuration 
 | Tool Name | Description | Parameters |
 |-----------|-------------|------------|
 | `mcp_mmk_notion_duplicate` | Duplicate a Notion block | `parent_id`: ID of the parent block where the duplicate will be placed<br>`source_id`: ID of the block to duplicate |
+| `mcp_mmk_server_version` | Check the Magic Meal Kits server version | No parameters required |
 
 ## Getting Notion Authentication
 

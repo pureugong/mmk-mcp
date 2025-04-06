@@ -19,3 +19,7 @@ export interface ApiResponse {
 export interface FetchOptions extends RequestInit {
     headers?: Record<string, string>;
 }
+
+export interface ServerVersionResponse {
+    version: string;
+}

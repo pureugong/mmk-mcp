@@ -84,6 +84,36 @@ server.setRequestHandler(NotionDuplicateSchema, async (request) => {
     }
 });
 
+// Define schema for server version check
+const ServerVersionSchema = z.object({
+    method: z.literal('tools/call'),
+    params: z.object({
+        name: z.literal('mcp_mmk_server_version'),
+        input: z.object({})
+    })
+});
+
+// Handle tool call for server version check
+server.setRequestHandler(ServerVersionSchema, async () => {
+    try {
+        const versionInfo = await mmk.getServerVersion();
+        
+        return {
+            result: formatResponse({
+                version: versionInfo.version,
+                message: `Magic Meal Kits server version: ${versionInfo.version}`
+            }),
+            isError: false
+        };
+    } catch (error) {
+        console.error('Error getting server version:', error);
+        return {
+            result: formatError(error instanceof Error ? error : String(error)),
+            isError: true
+        };
+    }
+});
+
 // Define schema for tools/list
 const ListToolsSchema = z.object({
     method: z.literal('tools/list')
@@ -103,6 +133,15 @@ server.setRequestHandler(ListToolsSchema, async () => {
                         source_id: { type: 'string', description: 'ID of the block to duplicate' }
                     },
                     required: ['parent_id', 'source_id']
+                }
+            },
+            {
+                name: 'mcp_mmk_server_version',
+                description: 'Check the Magic Meal Kits server version',
+                inputSchema: {
+                    type: 'object',
+                    properties: {},
+                    required: []
                 }
             }
         ]
