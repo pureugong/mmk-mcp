@@ -8,9 +8,10 @@ import { z } from 'zod';
 
 const server = new Server({
     name: 'Magic Meal Kits',
-    version: '1.0.0',
+    version: '1.0.0'
+}, {
     capabilities: {
-        tools: true
+        tools: {}
     }
 });
 

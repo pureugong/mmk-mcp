@@ -37,7 +37,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.7.0",
+    "@modelcontextprotocol/sdk": "^1.8.0",
     "axios": "^1.8.4",
     "dotenv": "^16.4.7",
     "zod": "^3.22.4"
