@@ -1,0 +1,55 @@
+{
+  "name": "mmk-mcp",
+  "version": "1.0.1",
+  "description": "MCP server for Magic Meal Kits with Notion integration. Enables AI assistants to duplicate Notion blocks programmatically through your Magic Meal Kits API.",
+  "type": "module",
+  "main": "build/src/index.js",
+  "scripts": {
+    "build": "tsc && node -e \"require('fs').chmodSync('build/src/index.js', '755')\"",
+    "start": "node build/src/index.js",
+    "dev": "tsc -w",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "npm run build",
+    "publish": "npm run build && npm publish"
+  },
+  "bin": {
+    "mmk-mcp": "./build/src/index.js"
+  },
+  "files": [
+    "build/src",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "mcp",
+    "notion",
+    "magic-meal-kits",
+    "notion-duplicate",
+    "block-duplication"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.7.0",
+    "axios": "^1.8.4",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.13",
+    "typescript": "^5.8.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pureugong/mmk-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pureugong/mmk-mcp/issues"
+  },
+  "homepage": "https://github.com/pureugong/mmk-mcp#readme"
+}
