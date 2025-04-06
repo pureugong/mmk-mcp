@@ -1,5 +1,7 @@
 # Magic Meal Kits MCP Server
 
+[![smithery badge](https://smithery.ai/badge/@pureugong/mmk-mcp)](https://smithery.ai/server/@pureugong/mmk-mcp)
+
 A Model Context Protocol server that enables Notion block duplication for Magic Meal Kits to be utilized as a tool by AI assistants. This integration allows AI systems to duplicate blocks in Notion through your Magic Meal Kits API.
 
 ## How It Works
@@ -27,6 +29,14 @@ The MCP server:
 - Notion workspace with appropriate permissions
 
 ### Installation
+
+#### Installing via Smithery
+
+To install mmk-mcp for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@pureugong/mmk-mcp):
+
+```bash
+npx -y @smithery/cli install @pureugong/mmk-mcp --client claude
+```
 
 #### Global Installation (Optional)
 
