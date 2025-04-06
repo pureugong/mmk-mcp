@@ -36,7 +36,7 @@ You can install the package globally using npm:
 npm install -g mmk-mcp
 ```
 
-Current version: 1.0.4
+Current version: 1.0.6
 
 #### Claude Desktop Configuration
 
