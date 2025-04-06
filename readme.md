@@ -129,7 +129,10 @@ mmk-mcp
 npm install -g @modelcontextprotocol/inspector
 
 # Connect to your running MCP server
-mcp-inspector stdio --command node --args "build/src/index.js"
+npx @modelcontextprotocol/inspector stdio -c "node" -a "build/src/index.js"
+
+# Or if you've installed the inspector globally:
+mcp-inspector stdio -c "node" -a "build/src/index.js"
 ```
 
 This will open an interactive inspector where you can test the MCP tools and view responses from the server.
