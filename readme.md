@@ -36,7 +36,7 @@ You can install the package globally using npm:
 npm install -g mmk-mcp
 ```
 
-Current version: 1.0.6
+Current version: 1.0.7
 
 #### Claude Desktop Configuration
 
@@ -112,11 +112,8 @@ NOTION_TOKEN=your-notion-token
 2. Run the server directly:
 
 ```bash
-# Using the debug script (automatically loads .env file):
+# Using the enhanced debug script:
 npm run debug
-
-# Alternatively, if running from source:
-npm start
 
 # Or if installed globally:
 mmk-mcp

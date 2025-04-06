@@ -14,7 +14,7 @@
     "release": "npm version patch && npm publish",
     "release:minor": "npm version minor && npm publish",
     "release:major": "npm version major && npm publish",
-    "debug": "node -r dotenv/config build/src/index.js"
+    "debug": "node debug.mjs"
   },
   "bin": {
     "mmk-mcp": "build/src/index.js"
@@ -39,11 +39,11 @@
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.7.0",
     "axios": "^1.8.4",
+    "dotenv": "^16.4.7",
     "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/node": "^22.13.13",
-    "dotenv": "^16.4.7",
     "typescript": "^5.8.2"
   },
   "engines": {
