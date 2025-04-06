@@ -1,0 +1,46 @@
+# Smithery configuration file: https://smithery.ai/docs/config#smitheryyaml
+
+startCommand:
+  type: stdio
+  configSchema:
+    # JSON Schema defining the configuration options for the MCP.
+    type: object
+    required:
+      - mmkApiKey
+      - mmkApiBaseUrl
+    properties:
+      mmkApiKey:
+        type: string
+        description: API key for Magic Meal Kits API. (Required)
+      mmkApiBaseUrl:
+        type: string
+        description: Base URL for the Magic Meal Kits API. (Required)
+      notionSpaceId:
+        type: string
+        description: Notion space ID. (Optional)
+      notionUserId:
+        type: string
+        description: Notion user ID. (Optional)
+      notionToken:
+        type: string
+        description: Notion token. (Optional)
+  commandFunction:
+    # A JS function that produces the CLI command based on the given config to start the MCP on stdio.
+    |-
+    (config) => ({
+      command: 'node',
+      args: ['build/src/index.js'],
+      env: {
+        MMK_API_KEY: config.mmkApiKey,
+        MMK_API_BASE_URL: config.mmkApiBaseUrl,
+        ...(config.notionSpaceId ? { NOTION_SPACE_ID: config.notionSpaceId } : {}),
+        ...(config.notionUserId ? { NOTION_USER_ID: config.notionUserId } : {}),
+        ...(config.notionToken ? { NOTION_TOKEN: config.notionToken } : {})
+      }
+    })
+  exampleConfig:
+    mmkApiKey: example-api-key
+    mmkApiBaseUrl: https://api.example.com
+    notionSpaceId: example-notion-space-id
+    notionUserId: example-notion-user-id
+    notionToken: example-notion-token
