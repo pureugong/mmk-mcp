@@ -92,3 +92,44 @@ To find your Notion authentication values:
    - Look for the `token_v2` cookie under the notion.so domain
 
 If you need assistance with finding any of these values, please feel free to ask for help.
+
+## Debugging
+
+### Running the MCP Server Directly
+
+For debugging purposes, you can run the MCP server directly to see console output and any errors:
+
+1. Create a `.env` file in the project root with all required environment variables:
+
+```
+MMK_API_KEY=your-api-key
+MMK_API_BASE_URL=https://magic-meal-kits-isjxytikta-uw.a.run.app
+NOTION_SPACE_ID=your-notion-space-id
+NOTION_USER_ID=your-notion-user-id
+NOTION_TOKEN=your-notion-token
+```
+
+2. Run the server directly:
+
+```bash
+# Using the debug script (automatically loads .env file):
+npm run debug
+
+# Alternatively, if running from source:
+npm start
+
+# Or if installed globally:
+mmk-mcp
+```
+
+3. In another terminal, you can test the server using the MCP Inspector tool:
+
+```bash
+# Install the MCP Inspector
+npm install -g @modelcontextprotocol/inspector
+
+# Connect to your running MCP server
+mcp-inspector stdio --command node --args "build/src/index.js"
+```
+
+This will open an interactive inspector where you can test the MCP tools and view responses from the server.
