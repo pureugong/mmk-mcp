@@ -133,3 +133,19 @@ mcp-inspector stdio -c "node" -a "build/src/index.js"
 ```
 
 This will open an interactive inspector where you can test the MCP tools and view responses from the server.
+
+### Troubleshooting
+
+If you encounter issues with the MCP server, here are some common solutions:
+
+#### Server Does Not Support Tools Error
+
+If you see an error like `Error: Server does not support tools (required for tools/call)`, make sure you're using version 1.0.8 or later. Earlier versions had an issue with the server capabilities format that has been fixed in 1.0.8.
+
+To update to the latest version, run:
+
+```bash
+npm install -g mmk-mcp@latest
+```
+
+This error occurs due to a change in the MCP SDK's expected format for capability declarations.
