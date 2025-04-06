@@ -9,6 +9,9 @@ import { z } from 'zod';
 const server = new Server({
     name: 'Magic Meal Kits',
     version: '1.0.0',
+    capabilities: {
+        tools: true
+    }
 });
 
 if (!process.env.MMK_API_KEY) {
