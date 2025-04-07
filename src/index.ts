@@ -140,6 +140,145 @@ server.setRequestHandler(ServerVersionSchema, async () => {
     }
 });
 
+// notion invite
+const NotionInviteSchema = z.object({
+    method: z.literal('tools/call'),
+    params: z.object({
+        name: z.literal('mcp_mmk_notion_invite'),
+        input: z.object({
+            block_id: z.string().describe('ID of the Notion block to invite user to'),
+            email: z.string().describe('Email of the user to invite'),
+            role: z.enum(['editor', 'read_and_write', 'comment_only', 'reader'])
+                .default('reader')
+                .describe('Access role for the invited user: editor (Full access), read_and_write (Can edit), comment_only (Can comment), reader (Can view)')
+        })
+    })
+}); 
+
+// Handle tool call for Notion invite
+server.setRequestHandler(NotionInviteSchema, async (request) => {
+    try {
+        if (!mmk.notion) {
+            return {
+                content: [
+                    { 
+                        type: "text", 
+                        text: "Notion client is not configured. Please set NOTION_SPACE_ID, NOTION_USER_ID, and NOTION_TOKEN environment variables." 
+                    }
+                ],
+                isError: true
+            };
+        }
+        
+        const { block_id, email, role } = request.params.input;
+        
+        // Validate required fields
+        const validationError = validateRequiredFields(request.params.input, ['block_id', 'email']);
+        if (validationError) {
+            return {
+                content: [
+                    { 
+                        type: "text", 
+                        text: validationError 
+                    }
+                ],
+                isError: true
+            };
+        }
+        
+        const result = await mmk.notion.inviteUser(block_id, email, role);
+
+        return {
+            content: [
+                { 
+                    type: "text", 
+                    text: `Successfully invited ${email} to Notion block with role: ${role}, block id: ${result.blockId}` 
+                }
+            ],
+            isError: false
+        };
+    } catch (error) {
+        console.error('Error inviting user to Notion block:', error);
+        return {
+            content: [
+                { 
+                    type: "text", 
+                    text: `Error inviting user to Notion block: ${error instanceof Error ? error.message : String(error)}` 
+                }
+            ],
+            isError: true
+        };
+    }
+});
+
+// notion revoke
+const NotionRevokeSchema = z.object({
+    method: z.literal('tools/call'),
+    params: z.object({
+        name: z.literal('mcp_mmk_notion_revoke'),
+        input: z.object({
+            block_id: z.string().describe('ID of the Notion block to revoke access from'),
+            email: z.string().describe('Email of the user to revoke access from')
+        })
+    })
+});
+
+// Handle tool call for Notion revoke
+server.setRequestHandler(NotionRevokeSchema, async (request) => {
+    try {
+        if (!mmk.notion) {
+            return {
+                content: [
+                    { 
+                        type: "text", 
+                        text: "Notion client is not configured. Please set NOTION_SPACE_ID, NOTION_USER_ID, and NOTION_TOKEN environment variables." 
+                    }
+                ],
+                isError: true
+            };
+        }
+        
+        const { block_id, email } = request.params.input;
+        
+        // Validate required fields
+        const validationError = validateRequiredFields(request.params.input, ['block_id', 'email']);
+        if (validationError) {
+            return {
+                content: [
+                    { 
+                        type: "text", 
+                        text: validationError 
+                    }
+                ],
+                isError: true
+            };
+        }
+        
+        const result = await mmk.notion.revokeAccess(block_id, email);
+        
+        return {
+            content: [
+                { 
+                    type: "text", 
+                    text: `Successfully revoked access for ${email} from Notion block` 
+                }
+            ],
+            isError: false
+        };
+    } catch (error) {
+        console.error('Error revoking access from Notion block:', error);
+        return {
+            content: [
+                { 
+                    type: "text", 
+                    text: `Error revoking access from Notion block: ${error instanceof Error ? error.message : String(error)}` 
+                }
+            ],
+            isError: true
+        };
+    }
+});
+
 // Define schema for tools/list
 const ListToolsSchema = z.object({
     method: z.literal('tools/list')
@@ -168,6 +307,42 @@ server.setRequestHandler(ListToolsSchema, async () => {
                     type: 'object',
                     properties: {},
                     required: []
+                }
+            },
+            {
+                name: 'mcp_mmk_notion_invite',
+                description: 'Invite a user to a Notion page',
+                inputSchema: {
+                    type: 'object',
+                    properties: {
+                        block_id: { type: 'string', description: 'ID of the Notion block to invite user to' },
+                        email: { type: 'string', description: 'Email of the user to invite' },
+                        role: { 
+                            type: 'string', 
+                            description: 'Access role for the invited user',
+                            enum: ['editor', 'read_and_write', 'comment_only', 'reader'],
+                            enumDescriptions: [
+                                'Full access',
+                                'Can edit',
+                                'Can comment',
+                                'Can view'
+                            ],
+                            default: 'reader'
+                        }
+                    },
+                    required: ['block_id', 'email']
+                }
+            },
+            {
+                name: 'mcp_mmk_notion_revoke',
+                description: 'Revoke access from a user for a Notion page',
+                inputSchema: {
+                    type: 'object',
+                    properties: {
+                        block_id: { type: 'string', description: 'ID of the Notion block to revoke access from' },
+                        email: { type: 'string', description: 'Email of the user to revoke access from' }
+                    },
+                    required: ['block_id', 'email']
                 }
             }
         ]
