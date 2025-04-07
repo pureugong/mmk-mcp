@@ -1,0 +1,31 @@
+# Smithery configuration file: https://smithery.ai/docs/config#smitheryyaml
+
+startCommand:
+  type: stdio
+  configSchema:
+    # JSON Schema defining the configuration options for the MCP.
+    type: object
+    required:
+      - mmkApiKey
+      - mmkApiBaseUrl
+    properties:
+      mmkApiKey:
+        type: string
+        description: Magic Meal Kits API key.
+      mmkApiBaseUrl:
+        type: string
+        description: Base URL for Magic Meal Kits API.
+  commandFunction:
+    # A JS function that produces the CLI command based on the given config to start the MCP on stdio.
+    |-
+    (config) => ({
+      command: 'node',
+      args: ['build/src/index.js'],
+      env: {
+        MMK_API_KEY: config.mmkApiKey,
+        MMK_API_BASE_URL: config.mmkApiBaseUrl
+      }
+    })
+  exampleConfig:
+    mmkApiKey: dummy-api-key-123
+    mmkApiBaseUrl: https://api.magicmealkits.example.com
