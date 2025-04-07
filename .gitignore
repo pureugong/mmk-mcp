@@ -33,4 +33,11 @@ yarn-error.log*
 # Misc
 .npm
 .yarn-integrity
-coverage/ 
+coverage/
+
+# LLM full text files
+*.llm
+*.llm.txt
+llm_*.txt
+llm_*.json
+.llm_content/ 

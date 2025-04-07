@@ -1,21 +1,20 @@
 # Magic Meal Kits MCP Server
 
-A Model Context Protocol server that enables Notion block duplication for Magic Meal Kits to be utilized as a tool by AI assistants. This integration allows AI systems to duplicate blocks in Notion through your Magic Meal Kits API.
+A Model Context Protocol server for Magic Meal Kits that provides server version information as a tool for AI assistants.
 
 ## How It Works
 
 The MCP server:
 
-- Connects to your Magic Meal Kits API and Notion workspace
-- Enables AI assistants to duplicate Notion blocks by providing parent and source block IDs
-- Returns structured responses with detailed information about the duplicated blocks
-- Follows secure authentication practices using API keys and Notion authentication tokens
+- Connects to your Magic Meal Kits API
+- Enables AI assistants to check the Magic Meal Kits server version
+- Returns structured responses with version information
+- Follows secure authentication practices using API keys
 
 ## Benefits
 
-- Duplicate Notion blocks programmatically through natural language requests
+- Check Magic Meal Kits server version programmatically through natural language requests
 - Maintain a clean separation between your API backend and AI integration
-- Create seamless workflows between Magic Meal Kits and Notion
 
 ## Usage with Claude Desktop
 
@@ -24,7 +23,6 @@ The MCP server:
 - NodeJS
 - MCP Client (like Claude Desktop App)
 - Magic Meal Kits API Key
-- Notion workspace with appropriate permissions
 
 ### Installation
 
@@ -36,7 +34,7 @@ You can install the package globally using npm:
 npm install -g mmk-mcp
 ```
 
-Current version: 1.0.8
+Current version: 1.0.11
 
 #### Claude Desktop Configuration
 
@@ -50,10 +48,7 @@ To use this server with the Claude Desktop app, add the following configuration 
             "args": ["-y", "mmk-mcp"],
             "env": {
                 "MMK_API_KEY": "<your-api-key>",
-                "MMK_API_BASE_URL": "<your-api-base-url>",
-                "NOTION_SPACE_ID": "<your-notion-space-id>",
-                "NOTION_USER_ID": "<your-notion-user-id>",
-                "NOTION_TOKEN": "<your-notion-token>"
+                "MMK_API_BASE_URL": "<your-api-base-url>"
             }
         }
     }
@@ -62,9 +57,6 @@ To use this server with the Claude Desktop app, add the following configuration 
 
 - `MMK_API_KEY` - Your Magic Meal Kits API key
 - `MMK_API_BASE_URL` - The base URL for your Magic Meal Kits API
-- `NOTION_SPACE_ID` - Your Notion workspace ID (required for Notion integration)
-- `NOTION_USER_ID` - Your Notion user ID (required for Notion integration)
-- `NOTION_TOKEN` - Your Notion token from the token_v2 cookie (required for Notion integration)
 
 ### Development
 
@@ -78,20 +70,7 @@ To use this server with the Claude Desktop app, add the following configuration 
 
 | Tool Name | Description | Parameters |
 |-----------|-------------|------------|
-| `mcp_mmk_notion_duplicate` | Duplicate a Notion block | `parent_id`: ID of the parent block where the duplicate will be placed<br>`source_id`: ID of the block to duplicate |
 | `mcp_mmk_server_version` | Check the Magic Meal Kits server version | No parameters required |
-
-## Getting Notion Authentication
-
-To find your Notion authentication values:
-
-1. **Notion Space ID and User ID**: These can be found in the URL when navigating to your Notion workspace settings.
-2. **Notion Token**: This can be accessed from your browser cookies after logging into Notion:
-   - Open your browser's developer tools (F12)
-   - Go to the Application/Storage tab
-   - Look for the `token_v2` cookie under the notion.so domain
-
-If you need assistance with finding any of these values, please feel free to ask for help.
 
 ## Debugging
 
@@ -104,9 +83,6 @@ For debugging purposes, you can run the MCP server directly to see console outpu
 ```
 MMK_API_KEY=your-api-key
 MMK_API_BASE_URL=https://magic-meal-kits-isjxytikta-uw.a.run.app
-NOTION_SPACE_ID=your-notion-space-id
-NOTION_USER_ID=your-notion-user-id
-NOTION_TOKEN=your-notion-token
 ```
 
 2. Run the server directly:
@@ -140,12 +116,10 @@ If you encounter issues with the MCP server, here are some common solutions:
 
 #### Server Does Not Support Tools Error
 
-If you see an error like `Error: Server does not support tools (required for tools/call)`, make sure you're using version 1.0.8 or later. Earlier versions had an issue with the server capabilities format that has been fixed in 1.0.8.
+If you see an error like `Error: Server does not support tools (required for tools/call)`, make sure you're using version 1.0.11 or later.
 
 To update to the latest version, run:
 
 ```bash
 npm install -g mmk-mcp@latest
 ```
-
-This error occurs due to a change in the MCP SDK's expected format for capability declarations.

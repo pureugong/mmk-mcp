@@ -1,23 +1,13 @@
 import { ApiError } from './utils.js';
-import { 
-    NotionDuplicateRequest, 
-    NotionDuplicateResponse,
-    FetchOptions,
-    ServerVersionResponse
-} from './types.js';
+import { FetchOptions, ServerVersionResponse } from './types.js';
 
 class MMKClient {
     public readonly apiKey: string;
     public readonly baseUrl: string;
-    public notion!: NotionClient;
 
     constructor(apiKey: string, baseUrl: string) {
         this.apiKey = apiKey;
         this.baseUrl = baseUrl;
-    }
-
-    setNotion(notion: NotionClient) {
-        this.notion = notion;
     }
 
     async fetch<T = any>(path: string, options: FetchOptions = {}): Promise<T> {
@@ -48,46 +38,5 @@ class MMKClient {
     }
 }
 
-class NotionClient {
-    private readonly mmkClient: MMKClient;
-    public readonly spaceId: string;
-    public readonly userId: string;
-    public readonly token: string;
-
-    constructor(spaceId: string, userId: string, token: string, mmkClient: MMKClient) {
-        this.spaceId = spaceId;
-        this.userId = userId;
-        this.token = token;
-        this.mmkClient = mmkClient;
-    }
-
-    /**
-     * Get Notion headers required for authentication
-     */
-    private getNotionHeaders(): Record<string, string> {
-        return {
-            'X-Notion-Space-ID': this.spaceId,
-            'X-Notion-User-ID': this.userId,
-            'X-Notion-Token': this.token,
-        };
-    }
-
-    /**
-     * Duplicate a Notion block
-     */
-    async duplicate(parentId: string, sourceId: string): Promise<NotionDuplicateResponse> {
-        const requestBody: NotionDuplicateRequest = {
-            parentId,
-            sourceId,
-        };
-
-        return this.mmkClient.fetch<NotionDuplicateResponse>('/api/v1/notion/duplicate', {
-            method: 'POST',
-            headers: this.getNotionHeaders(),
-            body: JSON.stringify(requestBody),
-        });
-    }
-}
-
-export { MMKClient, NotionClient };
+export { MMKClient };
 
