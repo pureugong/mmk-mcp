@@ -3,7 +3,9 @@ import {
     NotionDuplicateRequest, 
     NotionDuplicateResponse,
     FetchOptions,
-    ServerVersionResponse
+    ServerVersionResponse,
+    NotionInviteResponse,
+    NotionRevokeResponse
 } from './types.js';
 
 class MMKClient {
@@ -86,6 +88,27 @@ class NotionClient {
             headers: this.getNotionHeaders(),
             body: JSON.stringify(requestBody),
         });
+    }
+
+    /**
+     * Invite a user to a Notion page
+     */
+    async inviteUser(blockId: string, email: string, role: string): Promise<NotionInviteResponse> {
+        role = role || 'reader';
+        return this.mmkClient.fetch<NotionInviteResponse>(`/api/v1/notion/invite`, {
+            method: 'POST',
+            headers: this.getNotionHeaders(),
+            body: JSON.stringify({ blockId, email, role }),
+        });
+    }
+
+    // revoke access to a Notion page
+    async revokeAccess(blockId: string, email: string): Promise<NotionRevokeResponse> {
+        return this.mmkClient.fetch<NotionRevokeResponse>(`/api/v1/notion/revoke`, {
+            method: 'POST',
+            headers: this.getNotionHeaders(),
+            body: JSON.stringify({ blockId, email }),
+        }); 
     }
 }
 

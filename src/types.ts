@@ -23,3 +23,20 @@ export interface FetchOptions extends RequestInit {
 export interface ServerVersionResponse {
     version: string;
 }
+
+export interface NotionInviteResponse {
+    message: string;
+    blockId: string;
+    user: {
+        id: string;
+        email: string;
+    }
+}
+
+export interface NotionRevokeResponse {
+    blockId: string;
+    user: {
+        id: string;
+        email: string;
+    }
+}
