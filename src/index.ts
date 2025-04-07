@@ -52,7 +52,12 @@ server.setRequestHandler(NotionDuplicateSchema, async (request) => {
     try {
         if (!mmk.notion) {
             return {
-                result: formatError('Notion client is not configured. Please set NOTION_SPACE_ID, NOTION_USER_ID, and NOTION_TOKEN environment variables.', 400),
+                content: [
+                    { 
+                        type: "text", 
+                        text: "Notion client is not configured. Please set NOTION_SPACE_ID, NOTION_USER_ID, and NOTION_TOKEN environment variables." 
+                    }
+                ],
                 isError: true
             };
         }
@@ -63,7 +68,12 @@ server.setRequestHandler(NotionDuplicateSchema, async (request) => {
         const validationError = validateRequiredFields(request.params.input, ['parent_id', 'source_id']);
         if (validationError) {
             return {
-                result: formatError(validationError, 400),
+                content: [
+                    { 
+                        type: "text", 
+                        text: validationError 
+                    }
+                ],
                 isError: true
             };
         }
@@ -71,18 +81,23 @@ server.setRequestHandler(NotionDuplicateSchema, async (request) => {
         const result = await mmk.notion.duplicate(parent_id, source_id);
         
         return {
-            result: formatResponse({
-                message: result.message,
-                parentId: result.parentId,
-                sourceId: result.sourceId,
-                newBlockId: result.newBlockId
-            }),
+            content: [
+                { 
+                    type: "text", 
+                    text: `Successfully duplicated Notion block. New block ID: ${result.newBlockId}` 
+                }
+            ],
             isError: false
         };
     } catch (error) {
         console.error('Error duplicating Notion block:', error);
         return {
-            result: formatError(error instanceof Error ? error : String(error)),
+            content: [
+                { 
+                    type: "text", 
+                    text: `Error duplicating Notion block: ${error instanceof Error ? error.message : String(error)}` 
+                }
+            ],
             isError: true
         };
     }
@@ -103,17 +118,23 @@ server.setRequestHandler(ServerVersionSchema, async () => {
         const versionInfo = await mmk.getServerVersion();
         
         return {
-            result: formatResponse({
-                version: versionInfo.version,
-                message: `Magic Meal Kits server version: ${versionInfo.version}`,
-                text: `Magic Meal Kits server version: ${versionInfo.version}`
-            }),
+            content: [
+                { 
+                    type: "text", 
+                    text: `Magic Meal Kits server version: ${versionInfo.version}` 
+                }
+            ],
             isError: false
         };
     } catch (error) {
         console.error('Error getting server version:', error);
         return {
-            result: formatError(error instanceof Error ? error : String(error)),
+            content: [
+                { 
+                    type: "text", 
+                    text: `Error getting server version: ${error instanceof Error ? error.message : String(error)}` 
+                }
+            ],
             isError: true
         };
     }
