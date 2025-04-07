@@ -70,7 +70,7 @@ To use this server with the Claude Desktop app, add the following configuration 
 
 | Tool Name | Description | Parameters |
 |-----------|-------------|------------|
-| `mcp_mmk_server_version` | Check the Magic Meal Kits server version | No parameters required |
+| `magic_meal_kits_server_version` | Check the Magic Meal Kits server version | No parameters required |
 
 ## Debugging
 

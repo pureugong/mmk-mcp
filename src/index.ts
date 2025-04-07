@@ -29,7 +29,7 @@ const mmk = new MMKClient(process.env.MMK_API_KEY, process.env.MMK_API_BASE_URL)
 const ServerVersionSchema = z.object({
     method: z.literal('tools/call'),
     params: z.object({
-        name: z.literal('mcp_mmk_server_version'),
+        name: z.literal('magic_meal_kits_server_version'),
         input: z.object({}).optional()
     })
 });
@@ -72,7 +72,7 @@ server.setRequestHandler(ListToolsSchema, async () => {
     return {
         tools: [
             {
-                name: 'mcp_mmk_server_version',
+                name: 'magic_meal_kits_server_version',
                 description: 'Check the Magic Meal Kits server version',
                 inputSchema: {
                     type: 'object',
