@@ -105,7 +105,8 @@ server.setRequestHandler(ServerVersionSchema, async () => {
         return {
             result: formatResponse({
                 version: versionInfo.version,
-                message: `Magic Meal Kits server version: ${versionInfo.version}`
+                message: `Magic Meal Kits server version: ${versionInfo.version}`,
+                text: `Magic Meal Kits server version: ${versionInfo.version}`
             }),
             isError: false
         };
