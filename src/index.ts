@@ -93,7 +93,7 @@ const ServerVersionSchema = z.object({
     method: z.literal('tools/call'),
     params: z.object({
         name: z.literal('mcp_mmk_server_version'),
-        input: z.object({})
+        input: z.object({}).optional()
     })
 });
 
