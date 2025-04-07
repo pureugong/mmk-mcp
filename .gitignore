@@ -40,4 +40,5 @@ coverage/
 *.llm.txt
 llm_*.txt
 llm_*.json
-.llm_content/ 
+.llm_content/
+llms-full.txt 
