@@ -1,6 +1,6 @@
 {
   "name": "mmk-mcp",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "MCP server for Magic Meal Kits with Notion integration. Enables AI assistants to duplicate Notion blocks programmatically through your Magic Meal Kits API.",
   "type": "module",
   "main": "build/src/index.js",
