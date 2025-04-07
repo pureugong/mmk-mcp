@@ -1,5 +1,7 @@
 # Magic Meal Kits MCP Server
 
+[![smithery badge](https://smithery.ai/badge/@pureugong/mmk-mcp)](https://smithery.ai/server/@pureugong/mmk-mcp)
+
 A Model Context Protocol server for Magic Meal Kits that provides server version information as a tool for AI assistants.
 
 ## How It Works
@@ -26,6 +28,14 @@ The MCP server:
 
 ### Installation
 
+#### Installing via Smithery
+
+To install mmk-mcp for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@pureugong/mmk-mcp):
+
+```bash
+npx -y @smithery/cli install @pureugong/mmk-mcp --client claude
+```
+
 #### Global Installation (Optional)
 
 You can install the package globally using npm:
@@ -34,7 +44,7 @@ You can install the package globally using npm:
 npm install -g mmk-mcp
 ```
 
-Current version: 1.0.11
+Current version: 1.0.17
 
 #### Claude Desktop Configuration
 
