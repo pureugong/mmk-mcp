@@ -1,3 +1,5 @@
+![Magic Meal Kits](https://make.magicmealkits.com/icon-256x256.png)
+
 # Magic Meal Kits MCP Server
 
 [![smithery badge](https://smithery.ai/badge/@pureugong/mmk-mcp)](https://smithery.ai/server/@pureugong/mmk-mcp)
