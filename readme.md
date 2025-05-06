@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/pureugong-mmk-mcp-badge.png)](https://mseep.ai/app/pureugong-mmk-mcp)
+
 ![Magic Meal Kits](https://make.magicmealkits.com/icon-256x256.png)
 
 # Magic Meal Kits MCP Server
